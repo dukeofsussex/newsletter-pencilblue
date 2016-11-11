@@ -1,0 +1,41 @@
+{
+    "uid": "newsletter-pencilblue",
+    "name": "Newsletter",
+    "description": "Provides newsletter support for Pencilblue",
+    "pb_version": "0.7.0",
+    "version": "0.1.0",
+    "author": {
+        "name": "Chris Satchell",
+        "website": "https://github.com/dukeofsussex",
+        "email": "satchell028@gmail.com"
+    },
+    "settings": [
+        {
+            "displayName": "Allow sign-up",
+            "group": "Newsletter Settings",
+            "name": "newsletter_sign_up_active",
+            "value": true
+        },
+        {
+            "displayName": "From address",
+            "group": "Newsletter Settings",
+            "name": "newsletter_from_address",
+            "value": "newsletter@my-pb.com"
+        },
+        {
+            "displayName": "From name",
+            "group": "Newsletter Settings",
+            "name": "newsletter_from_name",
+            "value": "My Pencilblue Site Newsletter"
+        }
+    ],
+    "permissions": {
+        "ACCESS_USER": [],
+        "ACCESS_WRITER": [],
+        "ACCESS_EDITOR": [],
+        "ACCESS_MANAGING_EDITOR": []
+    },
+    "main_module": {
+        "path": "newsletter.js"
+    }
+}

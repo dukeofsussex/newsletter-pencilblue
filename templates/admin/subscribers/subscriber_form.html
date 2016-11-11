@@ -1,0 +1,37 @@
+^tmp_admin=head^
+<div class="col-md-9">
+    ^tmp_admin=elements=error_success^
+    ^tmp_admin=elements=sub_nav^
+    <form name="subscriberForm" novalidate>
+        <div class="tab-content">
+            <div class="tab-pane active" id="content">
+                <div class="form-group" ng-class="{'has-error': !isFieldValid(subscriberForm.email)}">
+                    <label>^loc_generic.EMAIL^</label>
+                    <input type="email" name="email" class="form-control" ng-model="subscriber.email" required/>
+                    <div class="form_error" ng-if="!isFieldValid(subscriberForm.email)">^loc_generic.REQUIRED_FIELD^</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Verified</label><br/>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" ng-class="{'active': subscriber.verified}" ng-click="setVerificationState(true)">^loc_generic.YES^</button>
+                    <button type="button" class="btn btn-default" ng-class="{'active': !subscriber.verified}" ng-click="setVerificationState(false)">^loc_generic.NO^</button>
+                </div>
+            </div>
+            <a class="btn btn-default" href="/admin/newsletter/subscribers">
+                <i class="fa fa-ban"></i>&nbsp;^loc_generic.CANCEL^
+            </a>
+            <button type="button" class="btn btn-primary" ng-click="saveSubscriber()" ng-disabled="saving">
+                <i class="fa" ng-class="{'fa-save': !saving, 'fa-circle-o-notch fa-spin': saving}"></i>&nbsp;^loc_generic.SAVE^
+            </button>
+        </div>
+        <div class="spacer">
+            <label id="draft_info" ng-if="subscriber._id">
+                <span>^loc_generic.LAST_MODIFIED^</span>&nbsp;
+                <span id="timestamp">{{subscriber.last_modified | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+            </label>
+        </div>
+    </form>
+</div>
+^tmp_angular=admin=subscribers=subscriber_form^
+^tmp_admin=footer^

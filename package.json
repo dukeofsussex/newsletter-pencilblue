@@ -1,0 +1,21 @@
+{
+    "name": "newsletter-pencilblue",
+    "version": "0.1.0",
+    "description": "Provides newsletter support for Pencilblue",
+    "keywords": [
+        "pencilblue",
+        "newsletter"
+    ],
+    "homepage": "https://github.com/dukeofsussex/newsletter-pencilblue#readme",
+    "bugs": "https://github.com/dukeofsussex/newsletter-pencilblue/issues",
+    "license": "MIT",
+    "author": "Chris Satchell",
+    "main": "newsletter.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/dukeofsussex/newsletter-pencilblue.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+}

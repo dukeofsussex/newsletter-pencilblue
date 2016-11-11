@@ -1,0 +1,61 @@
+<script type="text/javascript" src="/js/angular/filters/parsable_date.js"></script>
+<script type="text/javascript" src="/js/angular/services/form_validation.js"></script>
+<script type="text/javascript">
+    angular.module('pencilblueApp', ['parseDate', 'validation'])
+        .controller('PencilBlueController', function ($scope, $http, $window, $timeout, validationService) {
+            ^angular_objects^
+            ^tmp_angular=admin=elements=is_field_valid^
+            ^tmp_angular=admin=elements=error_success^
+
+            $scope.APIUrl = '/api/newsletter/subscriptions';
+
+            $scope.setVerificationState = function(state) {
+                $scope.subscriber.verified = state;
+            };
+
+            $scope.saveSubscriber = function (draft) {
+                $scope.formSubmitted = true;
+
+                if (!validationService.isFormValid($scope.subscriberForm)) {
+                    return;
+                }
+                $scope.saving = true;
+                if ($scope.subscriber._id) {
+                    $http.put($scope.APIUrl + '/' + $scope.subscriber._id, $scope.subscriber)
+                        .success(function (result) {
+                            $scope.successMessage = 'Subscriber ' + loc.admin.EDITED;
+                            $scope.subscriber.last_modified = result.last_modified;
+                            $scope.saving = false;
+                        })
+                        .error(function (error, status) {
+                            if (error.validationErrors) {
+                                $scope.errorMessage = error.validationErrors[0].message;
+                            } else {
+                                $scope.errorMessage = error.message;
+                            }
+                            $scope.saving = false;
+                        });
+                } else {
+                    $http.post($scope.APIUrl, $scope.subscriber)
+                        .success(function (result) {
+                            $scope.successMessage = 'Subscriber ' + loc.admin.CREATED;
+                            $scope.saving = false;
+
+                            if (!result._id) {
+                                $window.location = '/admin/newsletter/subscribers';
+                                return;
+                            }
+                            $window.location = '/admin/newsletter/subscribers/' + result._id.toString();
+                        })
+                        .error(function (error, status) {
+                            if (error.validationErrors) {
+                                $scope.errorMessage = error.validationErrors[0].message;
+                            } else {
+                                $scope.errorMessage = error.message;
+                            }
+                            $scope.saving = false;
+                        });
+                }
+            };
+        });
+</script>

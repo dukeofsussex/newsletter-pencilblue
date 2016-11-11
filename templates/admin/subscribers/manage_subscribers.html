@@ -1,0 +1,26 @@
+^tmp_admin=head^
+<div class="col-md-9">
+  ^tmp_admin=elements=error_success^
+  ^tmp_admin=elements=sub_nav^
+  ^tmp_admin=elements=search_input^
+  <div ng-if="!subscribers">
+    <i class="fa fa-4x fa-circle-o-notch fa-spin"></i>
+  </div>
+  <div ng-if="subscribers" ng-cloak>
+    <div class="table_container">
+      <table class="table table-responsive table-condensed">
+        ^tmp_admin=elements=table_headers^
+        <tr ng-repeat="subscriber in subscribers track by subscriber._id" ng-if="!subscriber.hidden && !subscriber.paginated">
+          <td><a ng-href="/admin/newsletter/subscribers/{{subscriber._id}}" ng-bind="subscriber.email"></a></td>
+          <td ng-bind="subscriber.created | date: 'yyyy-MM-dd HH:mm'"></td>
+          <td ng-bind="subscriber.verified"></td>
+          <td><a href="#" ng-click="confirmDelete($index)"><i class="fa fa-trash"></i></a></td>
+        </tr>
+      </table>
+    </div>
+    ^tmp_admin=elements=pagination^
+  </div>
+</div>
+^tmp_admin=elements=delete_modal^
+^tmp_angular=admin=subscribers=manage_subscribers^
+^tmp_admin=footer^

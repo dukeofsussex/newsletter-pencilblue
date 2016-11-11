@@ -1,0 +1,57 @@
+^tmp_admin=head^
+<script type="text/javascript">
+    $('<style type="text/css" ng-bind="previewStyling"></style>').appendTo(document.body);
+</script>
+<div class="col-md-9">
+    ^tmp_admin=elements=error_success^
+    ^tmp_admin=elements=sub_nav^
+    ^tmp_admin=elements=tab_nav^
+    <form name="newsletterForm" novalidate>
+        <div class="tab-content">
+            <div class="tab-pane active" id="content">
+                <div class="form-group" ng-class="{'has-error': !isFieldValid(newsletterForm.subject)}">
+                    <label>Subject</label>
+                    <input type="text" name="subject" class="form-control" ng-model="newsletter.subject" required/>
+                    <div class="form_error" ng-if="!isFieldValid(newsletterForm.subject)">^loc_generic.REQUIRED_FIELD^</div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': !isFieldValid(newsletterForm.styling)}">
+                    <label>Styling</label>
+                    <textarea type="text" class="form-control" ng-model="newsletter.styling"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Use template?</label><br/>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-class="{'active': newsletter.use_template}" ng-click="setTemplateUsageState(true)">^loc_generic.YES^</button>
+                        <button type="button" class="btn btn-default" ng-class="{'active': !newsletter.use_template}" ng-click="setTemplateUsageState(false)">^loc_generic.NO^</button>
+                    </div>
+                </div>
+                <div class="form-group preview" ng-class="{'has-error': !isWysiwygValid(layout)}">
+                    <wysiwyg layout="layout" media="newsletter.newsletter_media"></wysiwyg>
+                    <div class="form_error" ng-if="!isWysiwygValid(layout)" style="margin-top: -1em">^loc_generic.REQUIRED_FIELD^</div>
+                </div>
+            </div>
+            <div class="tab-pane" id="media">
+                ^tmp_admin=elements=inline_media^
+            </div>
+            <div class="tab-pane preview" id="preview">
+                <div ng-if="newsletter.use_template">
+                    ^tmp_email=newsletter^
+                </div>
+                <div ng-if="!newsletter.use_template">
+                    ^styling^
+                    ^layout^
+                </div>
+            </div>
+            <a class="btn btn-default" href="/admin/newsletter/new">
+                <i class="fa fa-ban"></i>&nbsp;^loc_generic.CANCEL^
+            </a>&nbsp;
+            <button type="button" class="btn btn-primary" ng-click="sendNewsletter()" ng-disabled="saving">
+                <i class="fa" ng-class="{'fa-newspaper-o': !saving, 'fa-circle-o-notch fa-spin': saving}"></i>&nbsp;Send
+            </button>
+        </div>
+    </form>
+</div>
+^tmp_admin=elements=progress_console_modal^
+^tmp_admin=elements=wysiwyg_scripts^
+^tmp_angular=admin=newsletters=newsletter_form^
+^tmp_admin=footer^
